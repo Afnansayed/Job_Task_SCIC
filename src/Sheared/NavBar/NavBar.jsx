@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
 
     const navItems = <>
-        <NavLink to='/'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold' : 'font-bold')}> <li>Home</li></NavLink>
+        <NavLink to='/'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Home</li></NavLink>
+
+        <NavLink to='/login'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Login</li></NavLink>
+        
+        <NavLink to='/register'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Sign Up</li></NavLink>
         </>
   return (
     <>
@@ -36,7 +40,7 @@ const NavBar = () => {
           <a className="btn btn-ghost text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal ">
               {navItems}
           </ul>
         </div>
