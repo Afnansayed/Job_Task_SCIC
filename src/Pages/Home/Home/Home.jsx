@@ -1,9 +1,10 @@
+import Searching from "../Searching/Searching";
 
 
 const Home = () => {
 
     return <>
-        <h3>Home</h3>
+        <Searching/>
     </>
 }
 
