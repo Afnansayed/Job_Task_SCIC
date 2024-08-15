@@ -4,15 +4,18 @@ import { AuthContext } from "../../Providers/AuthProviders/AuthProviders";
 
 const NavBar = () => {
 
-  const info = useContext(AuthContext);
-  console.log(info);
+  const {logout} = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+  }
 
     const navItems = <>
-        <NavLink to='/'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Home</li></NavLink>
+        <NavLink to='/'  className={({isActive}) => (isActive ? 'border-b-2 border-purple-600 font-bold px-3' : 'font-bold px-3')}> <li>Home</li></NavLink>
 
-        <NavLink to='/login'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Login</li></NavLink>
+        <NavLink to='/login'  className={({isActive}) => (isActive ? 'border-b-2 border-purple-600 font-bold px-3' : 'font-bold px-3')}> <li>Login</li></NavLink>
         
-        <NavLink to='/register'  className={({isActive}) => (isActive ? 'border-b-2 border-red-400 font-bold px-3' : 'font-bold px-3')}> <li>Sign Up</li></NavLink>
+        <NavLink to='/register'  className={({isActive}) => (isActive ? 'border-b-2 border-purple-600 font-bold px-3' : 'font-bold px-3')}> <li>Sign Up</li></NavLink>
         </>
   return (
     <>
@@ -50,7 +53,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <button onClick={handleLogout} type="button" className="px-8 py-3  border-2 rounded border-purple-600 text-gray-800 font-bold">Border</button>
         </div>
       </div>
     </>
