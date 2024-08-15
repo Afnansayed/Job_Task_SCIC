@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProviders/AuthProviders";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const {login} = useContext(AuthContext);
+  const {login,googleLogin} = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
     console.log(data)
@@ -15,6 +16,15 @@ const Login = () => {
     .catch(err => console.log(err))
 
   };
+
+  const googlesignin = () => {
+     googleLogin()
+     .then(res => {
+      console.log(res.user);
+     })
+     .catch(err => console.log(err))
+
+  }
   return (
     <>
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-300 text-black mx-auto">
@@ -59,7 +69,7 @@ const Login = () => {
           <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button onClick={googlesignin} aria-label="Log in with Google" className="p-3 rounded-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -72,13 +82,7 @@ const Login = () => {
         </div>
         <p className="text-xs text-center sm:px-6 text-gray-600">
           Don't have an account?
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="underline text-black"
-          >
-            Sign up
-          </a>
+          <Link to='/register' className="ml-2 underline text-blue-700">Sign Up</Link>
         </p>
       </div>
     </>
