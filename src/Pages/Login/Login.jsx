@@ -1,19 +1,36 @@
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Providers/AuthProviders/AuthProviders";
+import { useContext } from "react";
+
 const Login = () => {
+  const {login} = useContext(AuthContext);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => {
+    console.log(data)
+    
+    login(data.email,data.password)
+    .then(res => {
+      console.log(res.user);
+    })
+    .catch(err => console.log(err))
+
+  };
   return (
     <>
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-300 text-black mx-auto">
         <h1 className="text-2xl font-bold text-center">Login</h1>
-        <form noValidate="" action="" className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate="" action="" className="space-y-6">
           <div className="space-y-1 text-sm">
-            <label htmlFor="username" className="block text-gray-600">
+            <label htmlFor="email" className="block text-gray-600">
               Username
             </label>
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email address"
               className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-black focus:border-violet-600"
+              {...register("email", { required: true })}
             />
           </div>
           <div className="space-y-1 text-sm">
@@ -26,12 +43,9 @@ const Login = () => {
               id="password"
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-black focus:border-violet-600"
+              {...register("password", { required: true })}
             />
-            <div className="flex justify-end text-xs text-gray-600">
-              <a rel="noopener noreferrer" href="#">
-                Forgot Password?
-              </a>
-            </div>
+
           </div>
           <button className="block w-full p-3 text-center rounded-sm text-gray-50 bg-violet-600">
             Sign in
