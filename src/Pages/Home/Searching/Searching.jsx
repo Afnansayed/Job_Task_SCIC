@@ -11,14 +11,17 @@ const Searching = () => {
   const [itemPerPage, setItemPerPage] = useState(12);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
 
   // fetch products count for pagination
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}`)
+      .get(
+        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}`
+      )
       .then((res) => setCount(res.data.count));
-      setCurrentPage(0);
-  }, [selectedBrand, selectedCategory]);
+    setCurrentPage(0);
+  }, [selectedBrand, selectedCategory, selectedPriceRange]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -31,7 +34,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}`
       );
       return res.data;
     },
@@ -39,7 +42,7 @@ const Searching = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, itemPerPage, selectedBrand, selectedCategory]);
+  }, [currentPage, itemPerPage, selectedBrand, selectedCategory, selectedPriceRange]);
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
@@ -85,7 +88,17 @@ const Searching = () => {
       setSelectedCategory(value);
     }
   };
-  console.log(selectedCategory);
+  const handlePriceRange = (e) => {
+    const value = e.target.value;
+
+    // If the same checkbox is clicked, unselect it
+    if (selectedPriceRange === value) {
+      setSelectedPriceRange("");
+    } else {
+      setSelectedPriceRange(value);
+    }
+  };
+  console.log(selectedPriceRange);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-12">
@@ -137,7 +150,9 @@ const Searching = () => {
             {/* Sidebar content here */}
             {/* handle brand */}
             <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">Brand</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">
+                Brand
+              </h3>
               <div className="flex flex-col space-y-2 justify-start items-start text-[15px]">
                 <span>
                   <input
@@ -182,10 +197,12 @@ const Searching = () => {
               </div>
             </div>
             <div className="divider"></div>
-              {/* handle dfjk */}
-              {/* handle brand */}
+            {/* handle dfjk */}
+            {/* handle Category */}
             <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">Category</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">
+                Category
+              </h3>
               <div className="flex flex-col space-y-2 justify-start items-start text-[15px]">
                 <span>
                   <input
@@ -229,7 +246,60 @@ const Searching = () => {
                 </span>
               </div>
             </div>
-
+            <div className="divider"></div>
+            {/* ---------------0000------------- */}
+            {/* handle Price range */}
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">
+                Price Range{" "}
+              </h3>
+              <div className="flex flex-col space-y-2 justify-start items-start text-[15px]">
+                <div className="flex gap-3">
+                  <span>
+                    <input
+                      type="checkbox"
+                      value="100"
+                      checked={selectedPriceRange === "100"}
+                      onChange={handlePriceRange}
+                      // disabled={selectedBrand !== "" && selectedBrand !== "100"}
+                    />{" "}
+                    100
+                  </span>
+                  <span>
+                    <input
+                      type="checkbox"
+                      value="200"
+                      checked={selectedPriceRange === "200"}
+                      onChange={handlePriceRange}
+                      // disabled={selectedBrand !== "" && selectedBrand !== "200"}
+                    />{" "}
+                    200
+                  </span>
+                </div>
+                <div className="flex gap-3">
+                  <span>
+                    <input
+                      type="checkbox"
+                      value="300"
+                      checked={selectedPriceRange === "300"}
+                      onChange={handlePriceRange}
+                      // disabled={selectedBrand !== "" && selectedBrand !== "300"}
+                    />{" "}
+                    300
+                  </span>
+                  <span>
+                    <input
+                      type="checkbox"
+                      value="400"
+                      checked={selectedPriceRange === "400"}
+                      onChange={handlePriceRange}
+                      // disabled={selectedBrand !== "" && selectedBrand !== "400"}
+                    />{" "}
+                    400
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
