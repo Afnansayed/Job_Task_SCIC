@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Products from "../Products/Products";
+import NestedSelection from "../../../components/NestedSelection/NestedSelection";
+import { MdMenuOpen } from "react-icons/md";
 
 const Searching = () => {
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemPerPage, setItemPerPage] = useState(10);
+  const [itemPerPage, setItemPerPage] = useState(12);
 
   // fetch products count for pagination
   useEffect(() => {
@@ -25,38 +27,39 @@ const Searching = () => {
   const { data: products = [], refetch } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`);
+      const res = await axios.get(
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`
+      );
       return res.data;
     },
   });
 
   useEffect(() => {
-    refetch()
-  },[currentPage,itemPerPage])
-
+    refetch();
+  }, [currentPage, itemPerPage]);
 
   // handle item per page
-  const handleItemsPerPage = (e) => {
-    setItemPerPage(e.target.value)
-    setCurrentPage(0)
-  }
+  // const handleItemsPerPage = (e) => {
+    // setItemPerPage(e.target.value);
+    // setCurrentPage(0);
+  // };
 
-  // handle curentpage 
+  // handle curentpage
   const handleCurrentPage = (page) => {
-    setCurrentPage(page)
-  }
+    setCurrentPage(page);
+  };
   // handle prev
   const handlePrev = () => {
-    if(currentPage > 0){
-      setCurrentPage(currentPage - 1)
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
     }
-  }
-  // handle next 
+  };
+  // handle next
   const handleNext = () => {
-    if (currentPage < pages.length - 1){
-         setCurrentPage(currentPage + 1)
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
     }
-  }
+  };
   //console.log(products)
   return (
     <>
@@ -76,12 +79,47 @@ const Searching = () => {
           since last 10 years . So you can trust our diginity and the best
           products.
         </p>
+
+        <div>
+          <NestedSelection />
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        {products.map((product) => (
-          <Products key={product._id} product={product}></Products>
-        ))}
+      {/* A mumba ui components }*/}
+      <div className="drawer lg:drawer-open pt-12">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content flex flex-col items-center justify-center">
+          {/* Page content here */}
+          {/* All Products Maping and rendering here */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
+            {products.map((product) => (
+              <Products key={product._id} product={product}></Products>
+            ))}
+          </div>
+          <label
+            htmlFor="my-drawer-2"
+            className="btn  bg-gradient-to-r from-purple-300 to-purple-600 m-2 drawer-button  lg:hidden absolute right-0 top-0"
+          >
+            <MdMenuOpen />
+          </label>
+        </div>
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer-2"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
+          <ul className="menu bg-gradient-to-b from-purple-300 to-purple-600 text-base-content min-h-full w-48 p-4">
+            {/* Sidebar content here */}
+            <li>
+              <a>Sidebar Item 1</a>
+            </li>
+            <li>
+              <a>Sidebar Item 2</a>
+            </li>
+          </ul>
+        </div>
       </div>
+
       <div className="flex justify-center items-center">
         <nav
           aria-label="Pagination"
@@ -113,7 +151,11 @@ const Searching = () => {
               key={page}
               type="button"
               aria-current="page"
-              className={currentPage === page ? 'inline-flex items-center bg-purple-600 text-white px-4 py-2 text-sm font-semibold border border-gray-300' :  'inlineflex items-center bg-white text-gray-800 px-4 py-2 text-sm font-semibold border border-gray-300'}
+              className={
+                currentPage === page
+                  ? "inline-flex items-center bg-purple-600 text-white px-4 py-2 text-sm font-semibold border border-gray-300"
+                  : "inlineflex items-center bg-white text-gray-800 px-4 py-2 text-sm font-semibold border border-gray-300"
+              }
               onClick={() => handleCurrentPage(page)}
             >
               {page + 1}
@@ -140,11 +182,15 @@ const Searching = () => {
             </svg>
           </button>
         </nav>
-        <select value={itemPerPage} onChange={handleItemsPerPage} className="bg-purple-600 mt-4 px-2 py-2 text-sm font-semibold border rounded-md border-gray-300 ml-6 mb-4">
-                       <option value="5">5</option>
-                       <option value="10">10</option>
-                       <option value="20">20</option>
-          </select>
+        {/* <select */}
+          {/* value={itemPerPage} */}
+          {/* onChange={handleItemsPerPage} */}
+          {/* className="bg-purple-600 mt-4 px-2 py-2 text-sm font-semibold border rounded-md border-gray-300 ml-6 mb-4" */}
+        {/* > */}
+          {/* <option value="5">5</option> */}
+          {/* <option value="10">10</option> */}
+          {/* <option value="20">20</option> */}
+        {/* </select> */}
       </div>
     </>
   );
