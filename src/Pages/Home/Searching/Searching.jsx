@@ -9,6 +9,7 @@ const Searching = () => {
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(12);
+  const [selectedBrand, setSelectedBrand] = useState("");
 
   // fetch products count for pagination
   useEffect(() => {
@@ -22,7 +23,7 @@ const Searching = () => {
 
   //console.log(numOfPages)
 
-  console.log(count, pages);
+  //console.log(count, pages);
 
   const { data: products = [], refetch } = useQuery({
     queryKey: ["products"],
@@ -40,8 +41,8 @@ const Searching = () => {
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
-    // setItemPerPage(e.target.value);
-    // setCurrentPage(0);
+  // setItemPerPage(e.target.value);
+  // setCurrentPage(0);
   // };
 
   // handle curentpage
@@ -60,7 +61,19 @@ const Searching = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-  //console.log(products)
+
+  //hand brand
+  const handleBrand = (e) => {
+    const value = e.target.value;
+
+    // If the same checkbox is clicked, unselect it
+    if (selectedBrand === value) {
+      setSelectedBrand("");
+    } else {
+      setSelectedBrand(value);
+    }
+  };
+  console.log(selectedBrand);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-12">
@@ -108,15 +121,45 @@ const Searching = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-gradient-to-b from-purple-300 to-purple-600 text-base-content min-h-full w-48 p-4">
+          <div className="menu bg-gradient-to-b from-purple-300 to-purple-600 text-base-content min-h-full w-48 p-4">
             {/* Sidebar content here */}
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
-          </ul>
+            {/* handle brand */}
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">Brand</h3>
+              <div className="flex flex-col space-y-2 justify-start items-start text-[15px]">
+                <span>
+                  <input
+                    type="checkbox"
+                    value="addidas"
+                    checked={selectedBrand === "addidas"}
+                    onChange={handleBrand}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "addidas"}
+                  />{" "}
+                  Addidas
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="puma"
+                    checked={selectedBrand === "puma"}
+                    onChange={handleBrand}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "puma"}
+                  />{" "}
+                  Puma
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="some"
+                    checked={selectedBrand === "some"}
+                    onChange={handleBrand}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "some"}
+                  />{" "}
+                  some
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -183,13 +226,13 @@ const Searching = () => {
           </button>
         </nav>
         {/* <select */}
-          {/* value={itemPerPage} */}
-          {/* onChange={handleItemsPerPage} */}
-          {/* className="bg-purple-600 mt-4 px-2 py-2 text-sm font-semibold border rounded-md border-gray-300 ml-6 mb-4" */}
+        {/* value={itemPerPage} */}
+        {/* onChange={handleItemsPerPage} */}
+        {/* className="bg-purple-600 mt-4 px-2 py-2 text-sm font-semibold border rounded-md border-gray-300 ml-6 mb-4" */}
         {/* > */}
-          {/* <option value="5">5</option> */}
-          {/* <option value="10">10</option> */}
-          {/* <option value="20">20</option> */}
+        {/* <option value="5">5</option> */}
+        {/* <option value="10">10</option> */}
+        {/* <option value="20">20</option> */}
         {/* </select> */}
       </div>
     </>
