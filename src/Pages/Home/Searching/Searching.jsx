@@ -34,6 +34,13 @@ const Searching = () => {
     refetch()
   },[currentPage,itemPerPage])
 
+
+  // handle item per page
+  const handleItemsPerPage = (e) => {
+    setItemPerPage(e.target.value)
+    setCurrentPage(0)
+  }
+
   // handle curentpage 
   const handleCurrentPage = (page) => {
     setCurrentPage(page)
@@ -75,7 +82,7 @@ const Searching = () => {
           <Products key={product._id} product={product}></Products>
         ))}
       </div>
-      <div>
+      <div className="flex justify-center items-center">
         <nav
           aria-label="Pagination"
           className="inline-flex -space-x-px rounded-md shadow-sm bg-gray-100 text-gray-800"
@@ -114,7 +121,7 @@ const Searching = () => {
           ))}
           <button
             type="button"
-            className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-r-md border-gray-300"
+            className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-r-md border-gray-300 mr-6"
             onClick={handleNext}
           >
             <span className="sr-only">Next</span>
@@ -133,6 +140,11 @@ const Searching = () => {
             </svg>
           </button>
         </nav>
+        <select value={itemPerPage} onChange={handleItemsPerPage} className="bg-purple-600 mt-4 px-2 py-2 text-sm font-semibold border rounded-md border-gray-300 ml-6 mb-4">
+                       <option value="5">5</option>
+                       <option value="10">10</option>
+                       <option value="20">20</option>
+          </select>
       </div>
     </>
   );
