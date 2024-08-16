@@ -14,9 +14,10 @@ const Searching = () => {
   // fetch products count for pagination
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/productsCount`)
+      .get(`http://localhost:5000/productsCount?brand=${selectedBrand}`)
       .then((res) => setCount(res.data.count));
-  }, []);
+      setCurrentPage(0);
+  }, [selectedBrand]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -29,7 +30,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}`
       );
       return res.data;
     },
@@ -37,7 +38,7 @@ const Searching = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, itemPerPage]);
+  }, [currentPage, itemPerPage, selectedBrand]);
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
@@ -130,8 +131,8 @@ const Searching = () => {
                 <span>
                   <input
                     type="checkbox"
-                    value="addidas"
-                    checked={selectedBrand === "addidas"}
+                    value="Addidas"
+                    checked={selectedBrand === "Addidas"}
                     onChange={handleBrand}
                     // disabled={selectedBrand !== "" && selectedBrand !== "addidas"}
                   />{" "}
@@ -140,22 +141,32 @@ const Searching = () => {
                 <span>
                   <input
                     type="checkbox"
-                    value="puma"
-                    checked={selectedBrand === "puma"}
+                    value="Puma"
+                    checked={selectedBrand === "Puma"}
                     onChange={handleBrand}
-                    // disabled={selectedBrand !== "" && selectedBrand !== "puma"}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Puma"}
                   />{" "}
                   Puma
                 </span>
                 <span>
                   <input
                     type="checkbox"
-                    value="some"
-                    checked={selectedBrand === "some"}
+                    value="Nike"
+                    checked={selectedBrand === "Nike"}
                     onChange={handleBrand}
-                    // disabled={selectedBrand !== "" && selectedBrand !== "some"}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Nike"}
                   />{" "}
-                  some
+                  Nike
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="Gucci"
+                    checked={selectedBrand === "Gucci"}
+                    onChange={handleBrand}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Gucci"}
+                  />{" "}
+                  Gucci
                 </span>
               </div>
             </div>
