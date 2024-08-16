@@ -10,14 +10,15 @@ const Searching = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(12);
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // fetch products count for pagination
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/productsCount?brand=${selectedBrand}`)
+      .get(`http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}`)
       .then((res) => setCount(res.data.count));
       setCurrentPage(0);
-  }, [selectedBrand]);
+  }, [selectedBrand, selectedCategory]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -30,7 +31,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}`
       );
       return res.data;
     },
@@ -38,7 +39,7 @@ const Searching = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, itemPerPage, selectedBrand]);
+  }, [currentPage, itemPerPage, selectedBrand, selectedCategory]);
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
@@ -74,7 +75,17 @@ const Searching = () => {
       setSelectedBrand(value);
     }
   };
-  console.log(selectedBrand);
+  const handleCategory = (e) => {
+    const value = e.target.value;
+
+    // If the same checkbox is clicked, unselect it
+    if (selectedCategory === value) {
+      setSelectedCategory("");
+    } else {
+      setSelectedCategory(value);
+    }
+  };
+  console.log(selectedCategory);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-12">
@@ -170,6 +181,55 @@ const Searching = () => {
                 </span>
               </div>
             </div>
+            <div className="divider"></div>
+              {/* handle dfjk */}
+              {/* handle brand */}
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2 text-left">Category</h3>
+              <div className="flex flex-col space-y-2 justify-start items-start text-[15px]">
+                <span>
+                  <input
+                    type="checkbox"
+                    value="Men's Sneaker"
+                    checked={selectedCategory === "Men's Sneaker"}
+                    onChange={handleCategory}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "addidas"}
+                  />{" "}
+                  Men's Sneaker
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="Men's Pants"
+                    checked={selectedCategory === "Men's Pants"}
+                    onChange={handleCategory}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Men's Pants"}
+                  />{" "}
+                  Men's Pants
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="Men's Boot"
+                    checked={selectedCategory === "Men's Boot"}
+                    onChange={handleCategory}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Men's Boot"}
+                  />{" "}
+                  Men's Boot
+                </span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value="Bag"
+                    checked={selectedCategory === "Bag"}
+                    onChange={handleCategory}
+                    // disabled={selectedBrand !== "" && selectedBrand !== "Bag"}
+                  />{" "}
+                  Bag
+                </span>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
