@@ -7,11 +7,11 @@ const Login = () => {
   const {login,googleLogin} = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
-    console.log(data)
+  //  console.log(data)
     
     login(data.email,data.password)
     .then(res => {
-      console.log(res.user);
+     // console.log(res.user);
     })
     .catch(err => console.log(err))
 
@@ -20,7 +20,7 @@ const Login = () => {
   const googlesignin = () => {
      googleLogin()
      .then(res => {
-      console.log(res.user);
+      //console.log(res.user);
      })
      .catch(err => console.log(err))
 

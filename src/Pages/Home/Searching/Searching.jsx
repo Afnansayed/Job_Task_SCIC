@@ -117,7 +117,7 @@ const Searching = () => {
     const value = e.target.value;
     setSelectedPriceOrder(value);
   }
-  console.log(selctedPriceOrder);
+ // console.log(selctedPriceOrder);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-4 lg:p-12 rounded-sm">

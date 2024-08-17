@@ -9,7 +9,7 @@ const Register = () => {
 
         createUser(data.email,data.password)
         .then(res => {
-          console.log(res.user)
+          //console.log(res.user)
         })
         .catch(err => console.log(err))
     };
