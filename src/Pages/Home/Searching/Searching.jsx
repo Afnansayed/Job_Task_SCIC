@@ -13,16 +13,17 @@ const Searching = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [searchVlaue, setSearchValue] = useState("");
+  const [selctedPriceOrder, setSelectedPriceOrder] = useState("");
 
   // fetch products count for pagination
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}`
+        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       )
       .then((res) => setCount(res.data.count));
     setCurrentPage(0);
-  }, [selectedBrand, selectedCategory, selectedPriceRange,searchVlaue]);
+  }, [selectedBrand, selectedCategory, selectedPriceRange, searchVlaue,selctedPriceOrder]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -35,7 +36,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       );
       return res.data;
     },
@@ -43,7 +44,15 @@ const Searching = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, itemPerPage, selectedBrand, selectedCategory, selectedPriceRange,searchVlaue]);
+  }, [
+    currentPage,
+    itemPerPage,
+    selectedBrand,
+    selectedCategory,
+    selectedPriceRange,
+    searchVlaue,
+    selctedPriceOrder,
+  ]);
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
@@ -101,14 +110,18 @@ const Searching = () => {
   };
 
   const handleSearch = (e) => {
-          const value = e.target.value;
-          setSearchValue(value)
+    const value = e.target.value;
+    setSearchValue(value);
+  };9
+  const handlePriceLowToHigh = (e) => {
+    const value = e.target.value;
+    setSelectedPriceOrder(value);
   }
-  console.log(searchVlaue);
+  console.log(selctedPriceOrder);
   return (
     <>
-      <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-12">
-        <h3 className="text-4xl font-bold  text-gray-600 uppercase">
+      <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-4 lg:p-12 rounded-sm">
+        <h3 className="text-3xl md:text-4xl font-bold  text-gray-600 uppercase">
           {" "}
           We are the best seller in the{" "}
           <span className="bg-gradient-to-r from-red-600  to-white bg-clip-text text-transparent">
@@ -117,15 +130,28 @@ const Searching = () => {
           </span>{" "}
           .
         </h3>
-        <p className="w-3/4 mx-auto text-gray-200 mt-6">
+        <p className="w-full text-center lg:w-3/4 mx-auto text-gray-200 mt-3 lg:mt-6">
           We are happy to help you to find the best product. You provide the
           best quality products . We are maintining our monopoly in the market
           since last 10 years . So you can trust our diginity and the best
           products.
         </p>
 
-        <div>
-                 <input type="text" placeholder="Search" className="w-full max-w-xs p-3" onChange={handleSearch} />
+        <div className="join my-6">
+          <input
+            type="text"
+            placeholder="Search"
+            className=" w-full  lg:w-72  p-2 join-item rounded-l-none"
+            onChange={handleSearch}
+          />
+          <select
+            className="p-2 w-full lg:w-64 jion-item"
+            onChange={handlePriceLowToHigh}
+          >
+            <option value="">Price Order</option>
+            <option value="asc">Low</option>
+            <option value="dsc">High</option>
+          </select>
         </div>
       </div>
       {/* A mumba ui components }*/}
