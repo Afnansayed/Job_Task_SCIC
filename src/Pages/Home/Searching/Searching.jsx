@@ -12,16 +12,17 @@ const Searching = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [searchVlaue, setSearchValue] = useState("");
 
   // fetch products count for pagination
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}`
+        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}`
       )
       .then((res) => setCount(res.data.count));
     setCurrentPage(0);
-  }, [selectedBrand, selectedCategory, selectedPriceRange]);
+  }, [selectedBrand, selectedCategory, selectedPriceRange,searchVlaue]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -34,7 +35,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}`
       );
       return res.data;
     },
@@ -42,7 +43,7 @@ const Searching = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, itemPerPage, selectedBrand, selectedCategory, selectedPriceRange]);
+  }, [currentPage, itemPerPage, selectedBrand, selectedCategory, selectedPriceRange,searchVlaue]);
 
   // handle item per page
   // const handleItemsPerPage = (e) => {
@@ -98,7 +99,12 @@ const Searching = () => {
       setSelectedPriceRange(value);
     }
   };
-  console.log(selectedPriceRange);
+
+  const handleSearch = (e) => {
+          const value = e.target.value;
+          setSearchValue(value)
+  }
+  console.log(searchVlaue);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-12">
@@ -119,7 +125,7 @@ const Searching = () => {
         </p>
 
         <div>
-          <NestedSelection />
+                 <input type="text" placeholder="Search" className="w-full max-w-xs p-3" onChange={handleSearch} />
         </div>
       </div>
       {/* A mumba ui components }*/}
