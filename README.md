@@ -27,8 +27,8 @@ This project is a part of a Fullstack functionality-based single-page website. T
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/product-search-filter-frontend.git
-   cd product-search-filter-frontend
+   git clone [https://github.com/yourusername/product-search-filter-frontend.git](https://github.com/Afnansayed/Job_Task_SCIC.git)
+   cd job_Task_SCIC
 
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
