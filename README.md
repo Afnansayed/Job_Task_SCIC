@@ -30,6 +30,33 @@ This project is a part of a Fullstack functionality-based single-page website. T
    git clone [https://github.com/yourusername/product-search-filter-frontend.git](https://github.com/Afnansayed/Job_Task_SCIC.git)
    cd job_Task_SCIC
 
+   ### Installation
+
+1. **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+2. **Create a `.env` file** in the root directory and add your Firebase configuration:
+
+    ```bash
+    REACT_APP_FIREBASE_API_KEY=your_api_key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+    REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+    ```
+
+3. **Start the development server**:
+
+    ```bash
+    npm start
+    ```
+
+### Running the Project
+
+After starting the development server, the project will be available at `http://localhost:5000`. You can browse the products, use search and filtering functionalities, and test the authentication features.
+
+
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
