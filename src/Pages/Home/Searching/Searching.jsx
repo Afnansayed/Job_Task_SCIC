@@ -14,12 +14,12 @@ const Searching = () => {
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [searchVlaue, setSearchValue] = useState("");
   const [selctedPriceOrder, setSelectedPriceOrder] = useState("");
-
+  //https://job-task-scic-server-alpha.vercel.app
   // fetch products count for pagination
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
+        `https://job-task-scic-server-alpha.vercel.app/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       )
       .then((res) => setCount(res.data.count));
     setCurrentPage(0);
@@ -36,7 +36,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
+        `https://job-task-scic-server-alpha.vercel.app/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       );
       return res.data;
     },
@@ -336,7 +336,7 @@ const Searching = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-6 md:mt-12">
         <nav
           aria-label="Pagination"
           className="inline-flex -space-x-px rounded-md shadow-sm bg-gray-100 text-gray-800"
