@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {handleCouponCopy} from  './copun'
+import {handleCouponCopy} from  './index'
 
 const Copun = () => {
      useEffect(() => {
@@ -52,7 +52,7 @@ const Copun = () => {
                 </div>
                </div>
                <div className='flex justify-center items-center'>
-                <p className='couponCode bg-[#fff] text-gray-400 p-1 font-semibold border-dotted border-2 border-r-0'>NewYear2024</p>
+                <p className='couponCode bg-[#fff] text-gray-400 p-1 font-semibold border-dotted border-2 border-r-0'>Eid-2024</p>
                 <p className='couponBtn h-9  flex items-center  p-1 uppercase text-sm border-dotted border-2 border-l-dashed '>copy code</p>
                </div>
                <div className='bg-[#fff] w-12 rounded-full h-12 absolute -top-6 right-1/3'></div>

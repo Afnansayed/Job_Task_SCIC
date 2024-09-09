@@ -1,6 +1,6 @@
 
 
-export const handleCouponCopy = () => {
+ export const handleCouponCopy = () => {
     const couponButtons = document.querySelectorAll('.couponBtn');
     couponButtons.forEach((button) => {
         button.addEventListener('click', (event) => {
@@ -19,6 +19,7 @@ export const handleCouponCopy = () => {
     });
 };
 
+export default handleCouponCopy;
 // const cpnBtn2 = document.getElementById('couponBtn2');
 // const cpnCode2 = document.getElementById('couponCode2');
 

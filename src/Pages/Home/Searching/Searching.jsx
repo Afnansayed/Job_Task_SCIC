@@ -14,16 +14,22 @@ const Searching = () => {
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [searchVlaue, setSearchValue] = useState("");
   const [selctedPriceOrder, setSelectedPriceOrder] = useState("");
-  //https://job-task-scic-server-alpha.vercel.app
-  // fetch products count for pagination
+  //http://localhost:5000
+  // fetch products count for pagination NewYear2024  Zen-Z2024 Eid-2024
   useEffect(() => {
     axios
       .get(
-        `https://job-task-scic-server-alpha.vercel.app/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
+        `http://localhost:5000/productsCount?brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       )
       .then((res) => setCount(res.data.count));
     setCurrentPage(0);
-  }, [selectedBrand, selectedCategory, selectedPriceRange, searchVlaue,selctedPriceOrder]);
+  }, [
+    selectedBrand,
+    selectedCategory,
+    selectedPriceRange,
+    searchVlaue,
+    selctedPriceOrder,
+  ]);
 
   const numOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numOfPages).keys()];
@@ -36,7 +42,7 @@ const Searching = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `https://job-task-scic-server-alpha.vercel.app/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
+        `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&brand=${selectedBrand}&category=${selectedCategory}&priceRange=${selectedPriceRange}&search=${searchVlaue}&priceOrder=${selctedPriceOrder}`
       );
       return res.data;
     },
@@ -112,12 +118,13 @@ const Searching = () => {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchValue(value);
-  };9
+  };
+  9;
   const handlePriceLowToHigh = (e) => {
     const value = e.target.value;
     setSelectedPriceOrder(value);
-  }
- // console.log(selctedPriceOrder);
+  };
+  // console.log(selctedPriceOrder);
   return (
     <>
       <div className="text-center bg-gradient-to-r from-purple-600 to-purple-300 p-4 lg:p-12 rounded-sm">
